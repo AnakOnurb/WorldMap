@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- A biblioteca bundle já contem os arquivos JS do Bootstrap, Popper, e jQuery.
+    <script src="js/bootstrap.bundle.js"></script>-->
+    <title>World Map </title>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/stylesheet.css"/>
+    <script src="js/worldmap.js" crossorigin="anonymous"></script>
+    <style>
+    </style>
+    <script>
+    </script>
+  </head>
+  <body lang="pt-br" onresize="mudarTamanho();" onload="mudarTamanho();">
+    <!-- Navegador superior -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="index.html">
+        <img id="headImage"  width="50px" height="50px" alt=""/>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">World map<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- Conteúdo da página -->
+    <div class="mainDiv africaImage">
+      <script type="text/javascript">
+         mudarTamanho();
+      </script>
+      <footer class="page-footer font-small">
+        <div class="footer-copyright text-center py-3">
+          <select id="countrySelect2" class="countrySelection2" onchange="loadInfo('countrySelect2');">
+            <option value="none">--Selecione--</option>
+          </select>
+        </div>
+      </footer>
+      <select id="countrySelect" class="countrySelection pageTitle" onchange="loadInfo('countrySelect');">
+        <option value="none">--Selecione--</option>
+      </select>
+      <div class="fields">
+        <div class="fieldContent"><span class="fieldTitle"> Acesso à Internet: </span><span id="acessointernet"></span>%</div>
+        <div class="fieldContent"><span class="fieldTitle"> Acesso à Celular: </span><span id="acessocelular"></span>%</div>
+      </div>
+      <div class="fields">
+        <div class="fieldContent"><span class="fieldTitle"> Cobertura Eletricidade: </span><span id="coberturaeletricidade">%</span></div>
+        <div class="fieldContent"><span class="fieldTitle"> Taxa Alfabetização: </span><span id="taxaalfabetizacao"></span>%</div>
+      </div>
+      <div class="fields">
+        <div class="fieldContent"><span class="fieldTitle"> Consumo Energia Total: </span><span id="consumototalenergia"></span>Kw</div>
+        <div class="fieldContent"><span class="fieldTitle"> Consumo Energia Renovável: </span><span id="consumoenergiarenovavel"></span>Kw</div>
+      </div>
+      <div class="fields">
+        <div class="fieldContent"><span class="fieldTitle"> GNI per Capita: </span><span id="gnicapita"></span>US$</div>
+        <div class="fieldContent"><span class="fieldTitle"> Medição de Censo: </span><span id="censo"></span></div>
+      </div>
+      <div class="fields">
+        <div class="fieldContent"><span class="fieldTitle"> Igualdade de Gênero: </span><span id="igualdadegenero"></span>%</div>
+        <div class="fieldContent"><span class="fieldTitle"> Crédito Privado: </span><span id="creditoprivado"></span>US$</div>
+      </div>
+      <div class="fields">
+        <div class="fieldContent"><span class="fieldTitle"> Investimento Externo: </span><span id="investimentoexterno"></span>%</div>
+        <div class="fieldContent" style="margin-bottom: 15px;"><span class="fieldTitle"> Força de Trabalho Juvenil: </span><span id="forcadetrabalho"></span>%</div>
+      </div>
+    </div>
+    <script>
+      getCountries("africa");
+    </script>
+  </body>
+  <!-- carga de scripts do Bootstrap, JQuery, Popper -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+</html>
