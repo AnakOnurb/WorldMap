@@ -1,14 +1,5 @@
 var qtd = 0;
 
-function mudarTamanho(){
-  if(screen.width < 800){
-    document.getElementById("headImage").src = "src/back.png";
-  }
-  else{
-    document.getElementById("headImage").src = "src/head.png";
-  }
-}
-
 function getQtd(){
   url = "https://api.worldbank.org/v2/country/all?format=json";
   console.log(url);
@@ -50,12 +41,6 @@ function getCountries(region){
             option.value = item.iso2Code;
             option.text = item.name;
             x.add(option);
-
-            var x = document.getElementById("countrySelect2");
-            var option = document.createElement("option");
-            option.value = item.iso2Code;
-            option.text = item.name;
-            x.add(option);
           }
         }
 
@@ -72,21 +57,37 @@ function getCountries(region){
 }
 
 function loadInfo(combo){
-  getInfo("acessointernet","2.0.cov.Int", combo);
-  getInfo("acessocelular","2.0.cov.Cel", combo);
-  getInfo("coberturaeletricidade","1.1_ACCESS.ELECTRICITY.TOT", combo);
-  getInfo("taxaalfabetizacao","1.1_YOUTH.LITERACY.RATE", combo);
-  getInfo("consumototalenergia","1.1_TOTAL.FINAL.ENERGY.CONSUM", combo);
-  getInfo("consumoenergiarenovavel","2.1_SHARE.TOTAL.RE.IN.TFEC", combo);
-  getInfo("gnicapita","6.0.GNIpc", combo);
-  getInfo("censo","3.11.01.01.popcen", combo);
-  getInfo("igualdadegenero","5.51.01.07.gender", combo);
-  getInfo("creditoprivado","DT.TDS.PRVT.CD", combo);
-  getInfo("investimentoexterno","BM.KLT.DINV.WD.GD.ZS", combo);
-  getInfo("forcadetrabalho","ccx_lf_pop_you", combo);
+  getInfo("acessointernet","2.0.cov.Int", combo, "%");
+  getInfo("acessocelular","2.0.cov.Cel", combo, "%");
+  getInfo("coberturaeletricidade","1.1_ACCESS.ELECTRICITY.TOT", combo, "%");
+  getInfo("taxaalfabetizacao","1.1_YOUTH.LITERACY.RATE", combo, "%");
+  getInfo("consumototalenergia","1.1_TOTAL.FINAL.ENERGY.CONSUM", combo, "KW");
+  getInfo("consumoenergiarenovavel","2.1_SHARE.TOTAL.RE.IN.TFEC", combo, "%");
+  getInfo("gnicapita","6.0.GNIpc", combo, "US$");
+  getInfo("censo","3.11.01.01.popcen", combo, "Bool");
+  getInfo("igualdadegenero","5.51.01.07.gender", combo, "dec%");
+  getInfo("creditoprivado","DT.TDS.PRVT.CD", combo, "US$");
+  getInfo("investimentoexterno","BM.KLT.DINV.WD.GD.ZS", combo, "dec%");
+  getInfo("forcadetrabalho","ccx_lf_pop_you", combo, "dec%");
 }
 
-function getInfo(idcampo, indicador, combo){
+function formatResult(data, unit){
+  if(unit == "%")
+    return +data.toFixed(2)+"%";
+  if(unit == "KW")
+    return +data.toFixed(2)+"KW";
+  if(unit == "US$")
+    return +data.toFixed(2)+"US$";
+  if(unit == "dec%")
+    return +(data*100).toFixed(2)+"%";
+  if(unit == "Bool"){
+    if(data == 1)
+      return "True";
+    return "False";
+  }
+}
+
+function getInfo(idcampo, indicador, combo, unit){
   var country = document.getElementById(combo).value.toLowerCase();
   if(country != "none"){
     var url = "https://api.worldbank.org/v2/country/"+country+"/indicator/"+indicador+"?format=json";
@@ -100,8 +101,7 @@ function getInfo(idcampo, indicador, combo){
         var data = JSON.parse(xhr.responseText)[1];
         campo.innerHTML = "Not Found";
         if(data != null){
-          campo.innerHTML = getFirstNotNull(data);
-          //+getFirstNotNull(data).toFixed(2)+"%"
+          campo.innerHTML = formatResult(getFirstNotNull(data), unit);
         }
       }
       else {
